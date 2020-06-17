@@ -1,10 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CartController!{% endblock %}
-
 {% block body %}
 
 <div class="container">
-    Cart is empty
+    <div class="jumbotron mt-3">
+        <h1 class="display-6 mb-3">Panier :</h1>
+        {% if items | length > 0 %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Image</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.product.title }}</td>
+                    <td><img src="{{item.product.image}}" alt="lorem ipsum" width="64px" height="64px"></td>
+                    <td>{{ item.product.price }} $</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.product.price * item.quantity }} $</td>
+                    <td><a href="{{ path('cart_remove', { 'id': item.product.id })}}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right">Total : </td>
+                    <td>{{ total }} $</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+        {% else %}
+        <div class="alert alert-dark" role="alert">
+            Cart is empty
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}
