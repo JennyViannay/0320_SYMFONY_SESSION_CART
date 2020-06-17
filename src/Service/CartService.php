@@ -42,7 +42,8 @@ class CartService {
         $this->session->set('panier', $panier);
     }
 
-    public function getCartItems(){
+    public function getCartItems()
+    {
         $panier = $this->session->get('panier', []);
         $panierInfos = [];
         foreach($panier as $id => $quantity){
@@ -54,7 +55,8 @@ class CartService {
         return $panierInfos;
     }
 
-    public function getTotalCart(){
+    public function getTotalCart()
+    {
         $total = 0;
         foreach ($this->getCartItems() as $item){
             $total += $item['quantity'] * $item['product']->getPrice();
